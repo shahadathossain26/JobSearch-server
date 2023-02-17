@@ -19,17 +19,32 @@ async function run() {
     try {
         const freshersJobsCollection = client.db("jobSearch").collection("freshersJobs");
         const experiencedJobsCollection = client.db("jobSearch").collection("experiencedJobs");
+        const bangladeshCompaniesCollection = client.db("jobSearch").collection("bangladeshCompanies");
+        const worldwideCompaniesCollection = client.db("jobSearch").collection("worldwideCompanies");
 
         app.get('/freshersjobs', async (req, res) => {
             const query = {};
             const freshersJobs = await freshersJobsCollection.find(query).toArray();
             res.send(freshersJobs);
         })
+
         app.get('/experiencedJobs', async (req, res) => {
             const query = {};
             const experiencedJobs = await experiencedJobsCollection.find(query).toArray();
             res.send(experiencedJobs);
         })
+
+        app.get('/bangladeshCompanies', async (req, res) => {
+            const filter = {};
+            const bangladeshCompanies = await bangladeshCompaniesCollection.find(filter).toArray();
+            res.send(bangladeshCompanies)
+        })
+        app.get('/worldwideCompanies', async (req, res) => {
+            const filter = {};
+            const worldwideCompanies = await worldwideCompaniesCollection.find(filter).toArray();
+            res.send(worldwideCompanies)
+        })
+
     }
 
     finally {
