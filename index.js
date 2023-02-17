@@ -23,8 +23,12 @@ async function run() {
         app.get('/freshersjobs', async (req, res) => {
             const query = {};
             const freshersJobs = await freshersJobsCollection.find(query).toArray();
-            console.log(freshersJobs);
             res.send(freshersJobs);
+        })
+        app.get('/experiencedJobs', async (req, res) => {
+            const query = {};
+            const experiencedJobs = await experiencedJobsCollection.find(query).toArray();
+            res.send(experiencedJobs);
         })
     }
 
