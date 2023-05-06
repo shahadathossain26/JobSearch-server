@@ -20,7 +20,12 @@ async function run() {
         const freshersJobsCollection = client.db("jobSearch").collection("freshersJobs");
         const experiencedJobsCollection = client.db("jobSearch").collection("experiencedJobs");
         const bangladeshCompaniesCollection = client.db("jobSearch").collection("bangladeshCompanies");
+
         const worldwideCompaniesCollection = client.db("jobSearch").collection("worldwideCompanies");
+
+        const usersCollection = client.db("jobSearch").collection("users");
+
+
 
         app.get('/freshersjobs', async (req, res) => {
             const query = {};
@@ -43,6 +48,17 @@ async function run() {
             const filter = {};
             const worldwideCompanies = await worldwideCompaniesCollection.find(filter).toArray();
             res.send(worldwideCompanies)
+        })
+
+        app.post('/users', async (req, res) => {
+            const user = req.body
+            const userQuery = { email: req.body.email }
+            const storedUser = await usersCollection.findOne(userQuery);
+            if (storedUser) {
+                return
+            }
+            const result = await usersCollection.insertOne(user);
+            res.send(result);
         })
 
     }
